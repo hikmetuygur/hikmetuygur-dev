@@ -5,6 +5,26 @@ import profilePic from '../../public/images/developer-pic.jpg';
 import AnimatedText from '@/components/AnimatedText';
 import Link from 'next/link';
 import { LinkArrow } from '@/components/Icons';
+import { useRouter } from 'next/router';
+import HireMe from '@/components/HireMe';
+import lightBulbImage from '../../public/images/lightbulb.svg';
+
+const CustomLink = ({ href, title, className = '' }) => {
+  const router = useRouter();
+  return (
+    <Link href={href} className={`${className} group relative`}>
+      {title}
+      <span
+        className={`
+      ease absolute -bottom-0.5 left-0 inline-block h-[2px] bg-black transition-[width] duration-300 group-hover:w-full
+      ${router.asPath === href ? 'w-full' : 'w-0'}
+      `}
+      >
+        &nbsp;
+      </span>
+    </Link>
+  );
+};
 
 export default function Home() {
   return (
@@ -41,22 +61,29 @@ export default function Home() {
                 <Link
                   href='/Hikmet-Uygur-CV.pdf'
                   target={'_blank'}
-                  className='flex items-center rounded-lg border-2 border-solid border-transparent bg-dark p-2.5 px-6 text-lg font-semibold text-light hover:border-dark hover:bg-light hover:text-dark'
+                  className='flex items-center rounded-lg border-2 border-solid border-transparent bg-dark p-2.5 px-6 text-lg font-semibold text-light transition-colors duration-300 ease-in-out hover:border-dark hover:bg-light hover:text-dark'
                   download={true}
                 >
-                  CV <LinkArrow className={'ml-1 w-6'} />
+                  CV <LinkArrow className={'ml-2 w-6'} />
                 </Link>
-                <Link
+                <CustomLink
                   href='mailto:uygurhikmet@gmail.com'
                   target={'_blank'}
-                  className='ml-4 text-lg font-semibold capitalize text-dark underline hover:scale-110'
-                >
-                  Contact
-                </Link>
+                  className='ml-8 text-lg font-semibold capitalize text-dark'
+                  title='Contact'
+                />
               </div>
             </div>
           </div>
         </Layout>
+        <HireMe />
+        <div>
+          <Image
+            src={lightBulbImage}
+            alt='light bulb'
+            className='h-auto w-full'
+          />
+        </div>
       </main>
     </>
   );
